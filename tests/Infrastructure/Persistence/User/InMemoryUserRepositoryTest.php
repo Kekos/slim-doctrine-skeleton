@@ -3,6 +3,7 @@
 namespace Tests\Infrastructure\Persistence\User;
 
 use App\Domain\User\User;
+use App\Domain\User\UserId;
 use App\Domain\User\UserNotFoundException;
 use App\Infrastructure\Persistence\User\InMemoryUserRepository;
 use Tests\TestCase;
@@ -13,7 +14,12 @@ class InMemoryUserRepositoryTest extends TestCase
 {
     public function testFindAll(): void
     {
-        $user = new User(1, 'bill.gates', 'Bill', 'Gates');
+        $user = new User(
+            UserId::fromString('d15381dd-3a2b-41b8-9a31-b17cd40ed0c7'),
+            'bill.gates',
+            'Bill',
+            'Gates',
+        );
 
         $user_repository = new InMemoryUserRepository([1 => $user]);
 
@@ -23,11 +29,11 @@ class InMemoryUserRepositoryTest extends TestCase
     public function testFindAllUsersByDefault(): void
     {
         $users = [
-            1 => new User(1, 'bill.gates', 'Bill', 'Gates'),
-            2 => new User(2, 'steve.jobs', 'Steve', 'Jobs'),
-            3 => new User(3, 'mark.zuckerberg', 'Mark', 'Zuckerberg'),
-            4 => new User(4, 'evan.spiegel', 'Evan', 'Spiegel'),
-            5 => new User(5, 'jack.dorsey', 'Jack', 'Dorsey'),
+            new User(UserId::fromString('d15381dd-3a2b-41b8-9a31-b17cd40ed0c7'), 'bill.gates', 'Bill', 'Gates'),
+            new User(UserId::fromString('e5df306c-5060-4daa-bbe6-c46fd7c18e6d'), 'steve.jobs', 'Steve', 'Jobs'),
+            new User(UserId::fromString('42b2485a-f753-49e4-9489-166bf7b5c0f2'), 'mark.zuckerberg', 'Mark', 'Zuckerberg'),
+            new User(UserId::fromString('6188b4c1-3ae4-4ad2-b0df-990e8c94bc97'), 'evan.spiegel', 'Evan', 'Spiegel'),
+            new User(UserId::fromString('6d95f2b5-2b52-4ac4-9ef2-16974638525f'), 'jack.dorsey', 'Jack', 'Dorsey'),
         ];
 
         $user_repository = new InMemoryUserRepository();
@@ -37,17 +43,25 @@ class InMemoryUserRepositoryTest extends TestCase
 
     public function testFindUserOfId(): void
     {
-        $user = new User(1, 'bill.gates', 'Bill', 'Gates');
+        $id = UserId::fromString('d15381dd-3a2b-41b8-9a31-b17cd40ed0c7');
+        $user = new User(
+            $id,
+            'bill.gates',
+            'Bill',
+            'Gates',
+        );
 
-        $user_repository = new InMemoryUserRepository([1 => $user]);
+        $user_repository = new InMemoryUserRepository([$user]);
 
-        $this->assertEquals($user, $user_repository->findUserOfId(1));
+        $this->assertEquals($user, $user_repository->findUserOfId($id));
     }
 
     public function testFindUserOfIdThrowsNotFoundException(): void
     {
         $user_repository = new InMemoryUserRepository([]);
         $this->expectException(UserNotFoundException::class);
-        $user_repository->findUserOfId(1);
+        $user_repository->findUserOfId(
+            UserId::fromString('d15381dd-3a2b-41b8-9a31-b17cd40ed0c7'),
+        );
     }
 }

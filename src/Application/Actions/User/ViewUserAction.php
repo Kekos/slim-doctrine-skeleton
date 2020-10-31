@@ -2,6 +2,7 @@
 
 namespace App\Application\Actions\User;
 
+use App\Domain\User\UserId;
 use Psr\Http\Message\ResponseInterface as Response;
 
 use function sprintf;
@@ -13,10 +14,12 @@ class ViewUserAction extends UserAction
      */
     protected function action(): Response
     {
-        $userId = (int) $this->resolveArg('id');
-        $user = $this->user_repository->findUserOfId($userId);
+        $user_id = $this->resolveArg('id');
+        $user = $this->user_repository->findUserOfId(
+            UserId::fromString($user_id),
+        );
 
-        $this->logger->info(sprintf('User of id `%s` was viewed.', $userId));
+        $this->logger->info(sprintf('User of id `%s` was viewed.', $user_id));
 
         return $this->respondWithData($user);
     }

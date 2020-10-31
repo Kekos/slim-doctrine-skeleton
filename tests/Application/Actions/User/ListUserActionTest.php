@@ -3,6 +3,7 @@
 namespace Tests\Application\Actions\User;
 
 use App\Application\Actions\ActionPayload;
+use App\Domain\User\UserId;
 use App\Domain\User\UserRepository;
 use App\Domain\User\User;
 use App\Infrastructure\Persistence\User\InMemoryUserRepository;
@@ -23,7 +24,12 @@ class ListUserActionTest extends TestCase
         /** @var Container $container */
         $container = $app->getContainer();
 
-        $user = new User(1, 'bill.gates', 'Bill', 'Gates');
+        $user = new User(
+            UserId::fromString('d15381dd-3a2b-41b8-9a31-b17cd40ed0c7'),
+            'bill.gates',
+            'Bill',
+            'Gates',
+        );
         $user_repository = new InMemoryUserRepository([$user]);
 
         $container->set(UserRepository::class, $user_repository);

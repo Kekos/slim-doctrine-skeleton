@@ -1,6 +1,8 @@
 <?php declare(strict_types=1);
 
+use App\Infrastructure\Doctrine\Type\UserIdType;
 use Doctrine\Common\Cache\FilesystemCache;
+use Doctrine\DBAL\Types\Type;
 use Doctrine\Migrations\Configuration\Migration\ConfigurationLoader as DoctrineConfigurationLoader;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Tools\Setup;
@@ -51,6 +53,8 @@ return [
         if (!$is_dev) {
             $proxy_dir = $settings['proxy_dir'];
         }
+
+        Type::addType(UserIdType::USER_ID, UserIdType::class);
 
         $config = Setup::createXMLMetadataConfiguration([$settings['metadata_dir']], $is_dev, $proxy_dir);
 

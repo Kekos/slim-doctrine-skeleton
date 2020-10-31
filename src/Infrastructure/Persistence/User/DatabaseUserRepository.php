@@ -3,6 +3,7 @@
 namespace App\Infrastructure\Persistence\User;
 
 use App\Domain\User\User;
+use App\Domain\User\UserId;
 use App\Domain\User\UserNotFoundException;
 use App\Domain\User\UserRepository;
 use Doctrine\ORM\EntityManager;
@@ -21,10 +22,10 @@ class DatabaseUserRepository implements UserRepository
     /**
      * {@inheritdoc}
      */
-    public function findUserOfId(int $id): User
+    public function findUserOfId(UserId $id): User
     {
         /** @var User $user */
-        $user = $this->repository->find($id);
+        $user = $this->repository->find((string) $id);
 
         if ($user === null) {
             throw new UserNotFoundException();

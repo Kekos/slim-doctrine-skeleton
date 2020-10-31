@@ -4,6 +4,7 @@ namespace Tests\Application\Actions\User;
 
 use App\Application\Actions\ActionPayload;
 use App\Domain\User\User;
+use App\Domain\User\UserId;
 use App\Domain\User\UserRepository;
 use App\Infrastructure\Persistence\User\InMemoryUserRepository;
 use DI\Container;
@@ -23,14 +24,21 @@ class ViewUserActionTest extends TestCase
         /** @var Container $container */
         $container = $app->getContainer();
 
-        $user = new User(1, 'bill.gates', 'Bill', 'Gates');
-        $user_repository = new InMemoryUserRepository([
-            1 => $user,
-        ]);
+        $user_id = UserId::fromString('d15381dd-3a2b-41b8-9a31-b17cd40ed0c7');
+        $user = new User(
+            $user_id,
+            'bill.gates',
+            'Bill',
+            'Gates',
+        );
+        $user_repository = new InMemoryUserRepository([$user]);
 
         $container->set(UserRepository::class, $user_repository);
 
-        $request = $this->createRequest('GET', '/users/1');
+        $request = $this->createRequest(
+            'GET',
+            '/users/' . $user_id,
+        );
         $response = $app->handle($request);
 
         $payload = (string) $response->getBody();
