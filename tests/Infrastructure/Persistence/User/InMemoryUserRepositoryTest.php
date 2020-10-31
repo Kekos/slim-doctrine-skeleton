@@ -64,4 +64,23 @@ class InMemoryUserRepositoryTest extends TestCase
             UserId::fromString('d15381dd-3a2b-41b8-9a31-b17cd40ed0c7'),
         );
     }
+
+    public function testAdd(): void
+    {
+        $user_repository = new InMemoryUserRepository([]);
+        $id = UserId::fromString('d15381dd-3a2b-41b8-9a31-b17cd40ed0c7');
+        $user = new User(
+            $id,
+            'bill.gates',
+            'Bill',
+            'Gates',
+        );
+
+        $user_repository->add($user);
+
+        $this->assertEquals(
+            $user,
+            $user_repository->findUserOfId($id),
+        );
+    }
 }

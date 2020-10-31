@@ -11,12 +11,13 @@ use Doctrine\ORM\EntityRepository;
 
 class DatabaseUserRepository implements UserRepository
 {
-    /** @var EntityRepository */
-    private $repository;
+    private EntityRepository $repository;
+    private EntityManager $entity_manager;
 
     public function __construct(EntityManager $entity_manager)
     {
         $this->repository = $entity_manager->getRepository(User::class);
+        $this->entity_manager = $entity_manager;
     }
 
     /**
@@ -40,5 +41,11 @@ class DatabaseUserRepository implements UserRepository
     public function findAll(): array
     {
         return $this->repository->findAll();
+    }
+
+    public function add(User $user): void
+    {
+        $this->entity_manager->persist($user);
+        $this->entity_manager->flush();
     }
 }

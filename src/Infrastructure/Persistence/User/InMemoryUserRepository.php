@@ -18,6 +18,7 @@ class InMemoryUserRepository implements UserRepository
 
     /**
      * @param User[]|null $users
+     * @throws AssertionFailedException
      */
     public function __construct(array $users = null)
     {
@@ -53,5 +54,11 @@ class InMemoryUserRepository implements UserRepository
         }
 
         return $this->users[$string_id];
+    }
+
+    public function add(User $user): void
+    {
+        $string_id = (string) $user->getId();
+        $this->users[$string_id] = $user;
     }
 }
