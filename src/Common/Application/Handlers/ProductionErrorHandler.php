@@ -30,8 +30,8 @@ final class ProductionErrorHandler
             $callable_resolver,
             $response_factory,
             false,
-            false,
-            false
+            true,
+            true
         );
         $this->middleware->setDefaultErrorHandler($this->error_handler);
     }
