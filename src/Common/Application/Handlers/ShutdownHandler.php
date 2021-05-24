@@ -8,6 +8,7 @@ use Slim\Interfaces\ErrorHandlerInterface;
 use Slim\ResponseEmitter;
 
 use function error_get_last;
+use function ob_get_clean;
 
 class ShutdownHandler
 {
@@ -37,6 +38,8 @@ class ShutdownHandler
             false,
             false
         );
+
+        ob_get_clean();
 
         $response_emitter = new ResponseEmitter();
         $response_emitter->emit($response);
