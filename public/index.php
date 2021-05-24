@@ -3,6 +3,7 @@
 use App\Common\Application\Handlers\ProductionErrorHandler;
 use App\Common\Application\Handlers\ShutdownHandler;
 use App\Common\Application\Handlers\WhoopsErrorHandler;
+use Psr\Log\LoggerInterface;
 use Slim\Factory\ServerRequestCreatorFactory;
 use Slim\ResponseEmitter;
 
@@ -13,7 +14,11 @@ $settings = $app->getContainer()->get('settings');
 if ($settings['displayErrorDetails']) {
     $whoops = new WhoopsErrorHandler($settings['whoopsEditor']);
 } else {
-    $error_handler = new ProductionErrorHandler($app->getResponseFactory(), $app->getCallableResolver());
+    $error_handler = new ProductionErrorHandler(
+        $app->getResponseFactory(),
+        $app->getCallableResolver(),
+        $app->getContainer()->get(LoggerInterface::class),
+    );
     $app->add($error_handler->getMiddleware());
 }
 

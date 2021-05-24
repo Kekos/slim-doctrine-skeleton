@@ -35,8 +35,8 @@ class ShutdownHandler
             $this->request,
             $exception,
             false,
-            false,
-            false
+            true,
+            true,
         );
 
         ob_get_clean();
