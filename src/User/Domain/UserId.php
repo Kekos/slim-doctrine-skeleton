@@ -1,10 +1,10 @@
 <?php declare(strict_types=1);
 
-namespace Tests\Domain\Fixtures;
+namespace App\User\Domain;
 
 use App\Common\Domain\AggregateUuid;
 
-final class TestAggregateUuid
+final class UserId
 {
 	use AggregateUuid;
 }

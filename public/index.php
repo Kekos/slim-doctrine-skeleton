@@ -1,8 +1,8 @@
 <?php declare(strict_types=1);
 
-use App\Application\Handlers\ProductionErrorHandler;
-use App\Application\Handlers\ShutdownHandler;
-use App\Application\Handlers\WhoopsErrorHandler;
+use App\Common\Application\Handlers\ProductionErrorHandler;
+use App\Common\Application\Handlers\ShutdownHandler;
+use App\Common\Application\Handlers\WhoopsErrorHandler;
 use Slim\Factory\ServerRequestCreatorFactory;
 use Slim\ResponseEmitter;
 

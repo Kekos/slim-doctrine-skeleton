@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-use App\Application\Middleware\ExceptionCatcherMiddleware;
+use App\Common\Infrastructure\Middleware\ExceptionCatcherMiddleware;
 use Kekos\ParseRequestBodyMiddleware\ParseRequestBodyMiddleware;
 use Slim\App;
 

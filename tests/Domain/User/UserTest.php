@@ -2,8 +2,8 @@
 
 namespace Tests\Domain\User;
 
-use App\Domain\User\User;
-use App\Domain\User\UserId;
+use App\User\Domain\User;
+use App\User\Domain\UserId;
 use Tests\TestCase;
 
 use function json_encode;

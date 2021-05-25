@@ -2,7 +2,7 @@
 
 namespace Tests;
 
-use App\Application\ContainerFactory;
+use App\Common\Application\ContainerFactory;
 use Exception;
 use Nyholm\Psr7\Factory\Psr17Factory;
 use Nyholm\Psr7\ServerRequest;

@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-use App\Infrastructure\Doctrine\Type\UserIdType;
+use App\Common\Infrastructure\Doctrine\Type\UserIdType;
 use Doctrine\Common\Cache\FilesystemCache;
 use Doctrine\DBAL\Types\Type;
 use Doctrine\Migrations\Configuration\Migration\ConfigurationLoader as DoctrineConfigurationLoader;

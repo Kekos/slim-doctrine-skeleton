@@ -1,7 +1,7 @@
 <?php declare(strict_types=1);
 
-use App\Domain\User\UserRepository;
-use App\Infrastructure\Persistence\User\DatabaseUserRepository;
+use App\User\Domain\UserRepository;
+use App\User\Infrastructure\Persistence\DatabaseUserRepository;
 
 use function DI\autowire;
 

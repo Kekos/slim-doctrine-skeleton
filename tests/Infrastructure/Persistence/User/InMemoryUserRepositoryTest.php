@@ -2,10 +2,10 @@
 
 namespace Tests\Infrastructure\Persistence\User;
 
-use App\Domain\User\User;
-use App\Domain\User\UserId;
-use App\Domain\User\UserNotFoundException;
-use App\Infrastructure\Persistence\User\InMemoryUserRepository;
+use App\User\Domain\User;
+use App\User\Domain\UserId;
+use App\User\Domain\UserNotFoundException;
+use App\User\Infrastructure\Persistence\InMemoryUserRepository;
 use Tests\TestCase;
 
 use function array_values;

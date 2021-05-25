@@ -2,9 +2,9 @@
 
 namespace Tests\Application\Actions\User;
 
-use App\Application\Actions\ActionPayload;
-use App\Domain\User\UserRepository;
-use App\Infrastructure\Persistence\User\InMemoryUserRepository;
+use App\Common\Application\Actions\ActionPayload;
+use App\User\Domain\UserRepository;
+use App\User\Infrastructure\Persistence\InMemoryUserRepository;
 use DI\Container;
 use Tests\TestCase;
 

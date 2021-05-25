@@ -2,8 +2,8 @@
 
 namespace Tests\Application\Actions;
 
-use App\Application\Actions\Action;
-use App\Application\Actions\ActionPayload;
+use App\Common\Application\Actions\Action;
+use App\Common\Application\Actions\ActionPayload;
 use DateTimeImmutable;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Log\LoggerInterface;

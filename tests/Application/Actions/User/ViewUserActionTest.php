@@ -2,11 +2,11 @@
 
 namespace Tests\Application\Actions\User;
 
-use App\Application\Actions\ActionPayload;
-use App\Domain\User\User;
-use App\Domain\User\UserId;
-use App\Domain\User\UserRepository;
-use App\Infrastructure\Persistence\User\InMemoryUserRepository;
+use App\Common\Application\Actions\ActionPayload;
+use App\User\Domain\User;
+use App\User\Domain\UserId;
+use App\User\Domain\UserRepository;
+use App\User\Infrastructure\Persistence\InMemoryUserRepository;
 use DI\Container;
 use Tests\TestCase;
 
