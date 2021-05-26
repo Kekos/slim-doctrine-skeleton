@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Tests\Application\Actions;
+namespace Tests\Common\Application\Actions;
 
 use App\Common\Application\Actions\Action;
 use App\Common\Application\Actions\ActionPayload;

@@ -1,11 +1,11 @@
 <?php declare(strict_types=1);
 
-namespace Tests\Domain;
+namespace Tests\Common\Domain;
 
 use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use stdClass;
-use Tests\Domain\Fixtures\TestAggregateUuid;
+use Tests\Common\Domain\Fixtures\TestAggregateUuid;
 
 final class AggregateUuidTest extends TestCase
 {

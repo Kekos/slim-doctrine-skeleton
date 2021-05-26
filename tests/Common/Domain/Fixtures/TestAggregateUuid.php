@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Tests\Domain\Fixtures;
+namespace Tests\Common\Domain\Fixtures;
 
 use App\Common\Domain\AggregateUuid;
 

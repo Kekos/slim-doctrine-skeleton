@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Tests\Infrastructure\Persistence\User;
+namespace Tests\User\Infrastructure\Persistence;
 
 use App\User\Domain\User;
 use App\User\Domain\UserId;

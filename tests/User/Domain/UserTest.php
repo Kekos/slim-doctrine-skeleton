@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Tests\Domain\User;
+namespace Tests\User\Domain;
 
 use App\User\Domain\User;
 use App\User\Domain\UserId;
