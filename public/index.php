@@ -19,7 +19,6 @@ if ($_SERVER['APP_ENV'] !== 'production') {
         $app->getCallableResolver(),
         $app->getContainer()->get(LoggerInterface::class),
     );
-    $app->add($error_handler->getMiddleware());
 }
 
 // Create Request object from globals
@@ -29,6 +28,10 @@ $request = $server_request_creator->createServerRequestFromGlobals();
 // Register middleware
 $middleware = require __DIR__ . '/../config/middleware.php';
 $middleware($app);
+
+if (isset($error_handler)) {
+    $app->add($error_handler->getMiddleware());
+}
 
 // Register routes
 $routes = require __DIR__ . '/../config/routes.php';
