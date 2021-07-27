@@ -2,5 +2,5 @@
 namespace App;
 
 function getVersion(): string {
-    return '1.0.0';
+    return '0.1.0';
 }
