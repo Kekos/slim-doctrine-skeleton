@@ -33,6 +33,7 @@
         "nyholm/psr7-server": "^1.0",
         "php-di/php-di": "^6.1",
         "slim/slim": "^4.5",
+        "symfony/cache": "^5.3",
         "symfony/console": "^5.1",
         "symfony/polyfill-uuid": "^1.20"
     },

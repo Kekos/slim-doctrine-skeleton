@@ -1,7 +1,6 @@
 <?php declare(strict_types=1);
 
 use App\Common\Infrastructure\Doctrine\Type\UserIdType;
-use Doctrine\Common\Cache\FilesystemCache;
 use Doctrine\DBAL\Types\Type;
 use Doctrine\Migrations\Configuration\Migration\ConfigurationLoader as DoctrineConfigurationLoader;
 use Doctrine\ORM\EntityManager;
@@ -57,8 +56,6 @@ return [
         Type::addType(UserIdType::USER_ID, UserIdType::class);
 
         $config = Setup::createXMLMetadataConfiguration([$settings['metadata_dir']], $is_dev, $proxy_dir);
-
-        $config->setMetadataCacheImpl(new FilesystemCache($settings['cache_dir']));
 
         $conn = [
             'url' => $_SERVER['DATABASE_URL'],
