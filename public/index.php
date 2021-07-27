@@ -11,7 +11,7 @@ require __DIR__ . '/../src/bootstrap.php';
 
 $settings = $app->getContainer()->get('settings');
 
-if ($settings['displayErrorDetails']) {
+if ($_SERVER['APP_ENV'] !== 'production') {
     $whoops = new WhoopsErrorHandler($settings['whoopsEditor']);
 } else {
     $error_handler = new ProductionErrorHandler(
