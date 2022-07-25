@@ -4,7 +4,7 @@
     xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
         https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd"
 >
-    <entity name="App\Domain\User\User" table="user">
+    <entity name="App\User\Domain\User" table="user">
         <id name="id" type="user_id"/>
 
         <field name="username" type="string" length="64" unique="true"/>
