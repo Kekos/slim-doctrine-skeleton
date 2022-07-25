@@ -23,7 +23,7 @@ return [
 
             'migrations' => [
                 'migrations_paths' => [
-                    'App\\Common\\Infrastructure\\Doctrine\\Migration' => dirname(__DIR__) . '/src/Infrastructure/Doctrine/Migration',
+                    'App\\Common\\Infrastructure\\Doctrine\\Migration' => dirname(__DIR__) . '/src/Common/Infrastructure/Doctrine/Migration',
                 ],
                 'custom_template' => __DIR__ . '/doctrine_migrations_class.php.tpl',
             ],
