@@ -18,14 +18,12 @@ use const JSON_THROW_ON_ERROR;
 
 abstract class Action
 {
-    protected LoggerInterface $logger;
     protected Request $request;
     protected Response $response;
     protected array $args;
 
-    public function __construct(LoggerInterface $logger)
+    public function __construct(protected LoggerInterface $logger)
     {
-        $this->logger = $logger;
     }
 
     /**
@@ -66,7 +64,6 @@ abstract class Action
 
     /**
      * @param array|object|null $data
-     * @return Response
      * @throws JsonException
      */
     protected function respondWithData($data = null, int $statusCode = 200): Response

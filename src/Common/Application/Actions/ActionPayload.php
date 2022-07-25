@@ -6,20 +6,15 @@ use JsonSerializable;
 
 class ActionPayload implements JsonSerializable
 {
-    private int $statusCode;
-    /** @var array|object|null */
-    private $data;
-
     /**
      * @param int $statusCode
      * @param array|object|null $data
      */
     public function __construct(
-        int $statusCode = 200,
-        $data = null
-    ) {
-        $this->statusCode = $statusCode;
-        $this->data = $data;
+        private int $statusCode = 200,
+        private $data = null,
+    )
+    {
     }
 
     public function getStatusCode(): int

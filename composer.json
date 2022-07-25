@@ -21,7 +21,7 @@
         }
     ],
     "require": {
-        "php": "^7.4",
+        "php": "^8.0 || ^8.1",
         "ext-json": "*",
         "beberlei/assert": "^3.2",
         "doctrine/migrations": "^3.0",

@@ -22,7 +22,7 @@ class InMemoryUserRepository implements UserRepository
      */
     public function __construct(array $users = null)
     {
-        $users = $users ?? [
+        $users ??= [
             new User(UserId::fromString('d15381dd-3a2b-41b8-9a31-b17cd40ed0c7'), 'bill.gates', 'Bill', 'Gates'),
             new User(UserId::fromString('e5df306c-5060-4daa-bbe6-c46fd7c18e6d'), 'steve.jobs', 'Steve', 'Jobs'),
             new User(UserId::fromString('42b2485a-f753-49e4-9489-166bf7b5c0f2'), 'mark.zuckerberg', 'Mark', 'Zuckerberg'),

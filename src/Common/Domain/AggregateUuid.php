@@ -5,37 +5,38 @@ namespace App\Common\Domain;
 use Assert\Assertion;
 use Assert\AssertionFailedException;
 
-use function get_class;
+trait AggregateUuid
+{
 
-trait AggregateUuid {
+    private string $id;
 
-	private string $id;
+    private function __construct()
+    {
+    }
 
-	private function __construct() {
-	}
+    public function __toString(): string
+    {
+        return $this->id;
+    }
 
-	public function __toString(): string {
-		return $this->id;
-	}
-
-	public function equals($other_id): bool {
-		return (
-			get_class($other_id) === get_class($this)
-			&& (string) $other_id === (string) $this
-		);
-	}
+    public function equals($other_id): bool
+    {
+        return (
+            $other_id::class === $this::class
+            && (string) $other_id === (string) $this
+        );
+    }
 
     /**
-     * @param string $id
-     * @return static
      * @throws AssertionFailedException
      */
-	public static function fromString(string $id) {
-		Assertion::uuid($id);
+    public static function fromString(string $id): static
+    {
+        Assertion::uuid($id);
 
-		$object_id = new static();
-		$object_id->id = $id;
+        $object_id = new static();
+        $object_id->id = $id;
 
-		return $object_id;
-	}
+        return $object_id;
+    }
 }

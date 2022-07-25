@@ -13,13 +13,11 @@ use function ob_get_clean;
 
 class ShutdownHandler
 {
-    private Request $request;
-    private ErrorHandlerInterface $error_handler;
-
-    public function __construct(Request $request, ErrorHandlerInterface $error_handler)
+    public function __construct(
+        private Request $request,
+        private ErrorHandlerInterface $error_handler,
+    )
     {
-        $this->request = $request;
-        $this->error_handler = $error_handler;
     }
 
     public function __invoke(): void

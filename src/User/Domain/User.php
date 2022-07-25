@@ -7,23 +7,14 @@ use JsonSerializable;
 
 class User implements JsonSerializable
 {
-    private UserId $id;
-    private string $username;
-    private string $first_name;
-    private string $last_name;
     private ?DateTime $created_time = null;
 
     public function __construct(
-        UserId $id,
-        string $username,
-        string $first_name,
-        string $last_name
-    )
-    {
-        $this->id = $id;
-        $this->username = $username;
-        $this->first_name = $first_name;
-        $this->last_name = $last_name;
+        private UserId $id,
+        private string $username,
+        private string $first_name,
+        private string $last_name,
+    ) {
     }
 
     public function getId(): UserId
@@ -71,7 +62,7 @@ class User implements JsonSerializable
         $this->created_time = new DateTime();
     }
 
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
         return [
             'id' => (string) $this->id,
