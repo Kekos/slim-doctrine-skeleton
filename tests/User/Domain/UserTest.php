@@ -4,6 +4,7 @@ namespace Tests\User\Domain;
 
 use App\User\Domain\User;
 use App\User\Domain\UserId;
+use PHPUnit\Framework\Attributes\DataProvider;
 use Tests\TestCase;
 
 use function json_encode;
@@ -12,7 +13,7 @@ use const JSON_THROW_ON_ERROR;
 
 class UserTest extends TestCase
 {
-    public function userProvider(): array
+    public static function userProvider(): array
     {
         return [
             ['d15381dd-3a2b-41b8-9a31-b17cd40ed0c7', 'bill.gates', 'Bill', 'Gates'],
@@ -23,9 +24,7 @@ class UserTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider userProvider
-     */
+    #[DataProvider('userProvider')]
     public function testGetters(string $id, string $username, string $first_name, string $last_name): void
     {
         $user = new User(UserId::fromString($id), $username, $first_name, $last_name);
@@ -36,9 +35,7 @@ class UserTest extends TestCase
         $this->assertEquals($last_name, $user->getLastName());
     }
 
-    /**
-     * @dataProvider userProvider
-     */
+    #[DataProvider('userProvider')]
     public function testJsonSerialize(string $id, string $username, string $first_name, string $last_name): void
     {
         $user = new User(UserId::fromString($id), $username, $first_name, $last_name);

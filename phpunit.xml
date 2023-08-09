@@ -1,29 +1,29 @@
 <?xml version="1.0"?>
-<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd"
+<phpunit
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.3/phpunit.xsd"
     backupGlobals="false"
-    backupStaticAttributes="false"
     beStrictAboutTestsThatDoNotTestAnything="true"
     beStrictAboutChangesToGlobalState="true"
-    beStrictAboutOutputDuringTests="true" colors="true"
-    convertErrorsToExceptions="true"
-    convertNoticesToExceptions="true"
-    convertWarningsToExceptions="true"
+    beStrictAboutOutputDuringTests="true"
+    colors="true"
     processIsolation="false"
     stopOnFailure="false"
     bootstrap="tests/bootstrap.php"
+    cacheDirectory=".phpunit.cache"
+    backupStaticProperties="false"
 >
-    <coverage processUncoveredFiles="true">
+    <source>
         <include>
             <directory suffix=".php">./src/</directory>
         </include>
-    </coverage>
+    </source>
     <testsuites>
         <testsuite name="Test Suite">
             <directory>./tests/</directory>
         </testsuite>
     </testsuites>
     <php>
-        <server name="APP_ENV" value="test" />
+        <server name="APP_ENV" value="test"/>
     </php>
 </phpunit>

@@ -40,7 +40,7 @@
     "require-dev": {
         "doctrine/sql-formatter": "^1.1",
         "filp/whoops": "^2.7",
-        "phpunit/phpunit": "^9.2",
+        "phpunit/phpunit": "^10.3",
         "vlucas/phpdotenv": "^5.1"
     },
     "config": {

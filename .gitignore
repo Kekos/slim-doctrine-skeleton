@@ -11,4 +11,4 @@ Thumbs.db
 !/logs/README.md
 /var/
 .env
-.phpunit.result.cache
+/.phpunit.cache
