@@ -40,6 +40,8 @@
     "require-dev": {
         "doctrine/sql-formatter": "^1.1",
         "filp/whoops": "^2.7",
+        "friendsofphp/php-cs-fixer": "^3.22",
+        "kubawerlos/php-cs-fixer-custom-fixers": "^3.16",
         "phpunit/phpunit": "^10.3",
         "vlucas/phpdotenv": "^5.1"
     },
@@ -62,6 +64,7 @@
     },
     "scripts": {
         "start": "php -S localhost:8080 -t public",
+        "cs-fix": "php-cs-fixer fix --allow-risky=yes",
         "test": "phpunit"
     }
 }
