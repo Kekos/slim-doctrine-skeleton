@@ -1,10 +1,11 @@
 <?php declare(strict_types=1);
 
 use App\Common\Infrastructure\Doctrine\Type\UserIdType;
+use Doctrine\DBAL\DriverManager;
 use Doctrine\DBAL\Types\Type;
 use Doctrine\Migrations\Configuration\Migration\ConfigurationLoader as DoctrineConfigurationLoader;
 use Doctrine\ORM\EntityManager;
-use Doctrine\ORM\Tools\Setup;
+use Doctrine\ORM\ORMSetup;
 use Kekos\DoctrineConsoleFactory\MigrationsConfigurationLoader;
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
@@ -55,13 +56,15 @@ return [
 
         Type::addType(UserIdType::USER_ID, UserIdType::class);
 
-        $config = Setup::createXMLMetadataConfiguration([$settings['metadata_dir']], $is_dev, $proxy_dir);
+        $config = ORMSetup::createXMLMetadataConfiguration([$settings['metadata_dir']], $is_dev, $proxy_dir);
 
-        $conn = [
+        $db_params = [
             'url' => $_SERVER['DATABASE_URL'],
         ];
 
-        return EntityManager::create($conn, $config);
+        $conn = DriverManager::getConnection($db_params);
+
+        return new EntityManager($conn, $config);
     },
 
     DoctrineConfigurationLoader::class => static function (ContainerInterface $c) {
