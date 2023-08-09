@@ -1,7 +1,8 @@
 <?php declare(strict_types=1);
 
-namespace App\Common\Infrastructure\Doctrine\Type;
+namespace App\User\Infrastructure\Type;
 
+use App\Common\Infrastructure\Doctrine\Type\AbstractUuidType;
 use App\User\Domain\UserId;
 
 final class UserIdType extends AbstractUuidType

@@ -1,7 +1,7 @@
 <?php declare(strict_types=1);
 
 use App\Common\Infrastructure\Doctrine\MySqlQuoteStrategy;
-use App\Common\Infrastructure\Doctrine\Type\UserIdType;
+use App\User\Infrastructure\Type\UserIdType;
 use Doctrine\DBAL\DriverManager;
 use Doctrine\DBAL\Types\Type;
 use Doctrine\Migrations\Configuration\Migration\ConfigurationLoader as DoctrineConfigurationLoader;
