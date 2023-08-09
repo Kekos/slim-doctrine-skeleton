@@ -6,5 +6,5 @@ use App\Common\Domain\AggregateUuid;
 
 final class TestAggregateUuid
 {
-	use AggregateUuid;
+    use AggregateUuid;
 }

@@ -47,7 +47,8 @@ class UserTest extends TestCase
                 'first_name' => $first_name,
                 'last_name' => $last_name,
                 'created_time' => null,
-            ], JSON_THROW_ON_ERROR
+            ],
+            JSON_THROW_ON_ERROR
         );
 
         $this->assertEquals($expected_payload, json_encode($user, JSON_THROW_ON_ERROR));

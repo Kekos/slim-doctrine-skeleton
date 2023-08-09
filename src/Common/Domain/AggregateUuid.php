@@ -7,7 +7,6 @@ use Assert\AssertionFailedException;
 
 trait AggregateUuid
 {
-
     private string $id;
 
     private function __construct()

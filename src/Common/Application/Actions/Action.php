@@ -22,8 +22,9 @@ abstract class Action
     protected Response $response;
     protected array $args;
 
-    public function __construct(protected LoggerInterface $logger)
-    {
+    public function __construct(
+        protected LoggerInterface $logger,
+    ) {
     }
 
     /**

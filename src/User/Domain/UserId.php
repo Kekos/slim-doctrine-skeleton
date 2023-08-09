@@ -6,5 +6,5 @@ use App\Common\Domain\AggregateUuid;
 
 final class UserId
 {
-	use AggregateUuid;
+    use AggregateUuid;
 }

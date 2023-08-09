@@ -11,8 +11,7 @@ abstract class UserAction extends Action
     public function __construct(
         LoggerInterface $logger,
         protected UserRepository $user_repository,
-    )
-    {
+    ) {
         parent::__construct($logger);
     }
 }

@@ -21,8 +21,7 @@ class ExceptionCatcherMiddleware implements MiddlewareInterface
 {
     public function __construct(
         private readonly ResponseFactoryInterface $response_factory,
-    )
-    {
+    ) {
     }
 
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
@@ -40,7 +39,7 @@ class ExceptionCatcherMiddleware implements MiddlewareInterface
             if ($ex instanceof LazyAssertionException) {
                 $message = 'Assertions failed';
                 $details = array_map(
-                    fn(InvalidArgumentException $ex) => $ex->getMessage(),
+                    fn (InvalidArgumentException $ex) => $ex->getMessage(),
                     $ex->getErrorExceptions(),
                 );
             }

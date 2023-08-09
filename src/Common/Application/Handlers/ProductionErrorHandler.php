@@ -20,7 +20,7 @@ final class ProductionErrorHandler
     public function __construct(
         ResponseFactoryInterface $response_factory,
         CallableResolverInterface $callable_resolver,
-        LoggerInterface $logger
+        LoggerInterface $logger,
     ) {
         $this->error_handler = new ErrorHandler(
             $callable_resolver,

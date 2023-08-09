@@ -17,14 +17,14 @@ class ActionTest extends TestCase
         $container = $app->getContainer();
         $logger = $container->get(LoggerInterface::class);
 
-        $test_action = new class($logger) extends Action {
-            public function action() :Response
+        $test_action = new class ($logger) extends Action {
+            public function action(): Response
             {
                 return $this->respond(
                     new ActionPayload(
                         202,
                         [
-                            'willBeDoneAt' => (new DateTimeImmutable())->format(DateTimeImmutable::ATOM)
+                            'willBeDoneAt' => (new DateTimeImmutable())->format(DateTimeImmutable::ATOM),
                         ]
                     )
                 );
@@ -44,12 +44,12 @@ class ActionTest extends TestCase
         $container = $app->getContainer();
         $logger = $container->get(LoggerInterface::class);
 
-        $test_action = new class($logger) extends Action {
-            public function action() :Response
+        $test_action = new class ($logger) extends Action {
+            public function action(): Response
             {
                 return $this->respondWithData(
                     [
-                        'willBeDoneAt' => (new DateTimeImmutable())->format(DateTimeImmutable::ATOM)
+                        'willBeDoneAt' => (new DateTimeImmutable())->format(DateTimeImmutable::ATOM),
                     ],
                     202
                 );

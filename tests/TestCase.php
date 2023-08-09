@@ -41,7 +41,7 @@ class TestCase extends PHPUnit_TestCase
         string $path,
         array $headers = ['HTTP_ACCEPT' => 'application/json'],
         array $cookies = [],
-        array $serverParams = []
+        array $serverParams = [],
     ): ServerRequestInterface {
         $uri = new Uri($path);
         $handle = fopen('php://temp', 'wb+');

@@ -16,8 +16,7 @@ class ShutdownHandler
     public function __construct(
         private readonly Request $request,
         private readonly ErrorHandlerInterface $error_handler,
-    )
-    {
+    ) {
     }
 
     public function __invoke(): void

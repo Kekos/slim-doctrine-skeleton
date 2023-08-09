@@ -9,8 +9,7 @@ class ActionPayload implements JsonSerializable
     public function __construct(
         private readonly int $statusCode = 200,
         private readonly object|array|null $data = null,
-    )
-    {
+    ) {
     }
 
     public function getStatusCode(): int

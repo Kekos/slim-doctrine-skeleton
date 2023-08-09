@@ -15,8 +15,7 @@ class DatabaseUserRepository implements UserRepository
 
     public function __construct(
         private readonly EntityManager $entity_manager,
-    )
-    {
+    ) {
         $this->repository = $entity_manager->getRepository(User::class);
     }
 
