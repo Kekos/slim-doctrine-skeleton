@@ -1,5 +1,6 @@
 <?php declare(strict_types=1);
 
+use App\Common\Infrastructure\Doctrine\MySqlQuoteStrategy;
 use App\Common\Infrastructure\Doctrine\Type\UserIdType;
 use Doctrine\DBAL\DriverManager;
 use Doctrine\DBAL\Types\Type;
@@ -57,6 +58,7 @@ return [
         Type::addType(UserIdType::USER_ID, UserIdType::class);
 
         $config = ORMSetup::createXMLMetadataConfiguration([$settings['metadata_dir']], $is_dev, $proxy_dir);
+        $config->setQuoteStrategy(new MySqlQuoteStrategy());
 
         $db_params = [
             'url' => $_SERVER['DATABASE_URL'],
