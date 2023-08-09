@@ -14,8 +14,8 @@ use function ob_get_clean;
 class ShutdownHandler
 {
     public function __construct(
-        private Request $request,
-        private ErrorHandlerInterface $error_handler,
+        private readonly Request $request,
+        private readonly ErrorHandlerInterface $error_handler,
     )
     {
     }

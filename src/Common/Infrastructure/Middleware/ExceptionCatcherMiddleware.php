@@ -19,7 +19,9 @@ use const JSON_THROW_ON_ERROR;
 
 class ExceptionCatcherMiddleware implements MiddlewareInterface
 {
-    public function __construct(private ResponseFactoryInterface $response_factory)
+    public function __construct(
+        private readonly ResponseFactoryInterface $response_factory,
+    )
     {
     }
 

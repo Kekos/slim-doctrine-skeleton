@@ -11,13 +11,13 @@ use Doctrine\ORM\EntityRepository;
 
 class DatabaseUserRepository implements UserRepository
 {
-    private EntityRepository $repository;
-    private EntityManager $entity_manager;
+    private readonly EntityRepository $repository;
 
-    public function __construct(EntityManager $entity_manager)
+    public function __construct(
+        private readonly EntityManager $entity_manager,
+    )
     {
         $this->repository = $entity_manager->getRepository(User::class);
-        $this->entity_manager = $entity_manager;
     }
 
     /**

@@ -50,10 +50,9 @@ abstract class Action
     abstract protected function action(): Response;
 
     /**
-     * @return mixed
      * @throws HttpBadRequestException
      */
-    protected function resolveArg(string $name)
+    protected function resolveArg(string $name): mixed
     {
         if (!isset($this->args[$name])) {
             throw new HttpBadRequestException($this->request, sprintf('Could not resolve argument `%s`.', $name));
@@ -63,10 +62,10 @@ abstract class Action
     }
 
     /**
-     * @param array|object|null $data
+     * @param object|array|null $data
      * @throws JsonException
      */
-    protected function respondWithData($data = null, int $statusCode = 200): Response
+    protected function respondWithData(object|array $data = null, int $statusCode = 200): Response
     {
         $payload = new ActionPayload($statusCode, $data);
 

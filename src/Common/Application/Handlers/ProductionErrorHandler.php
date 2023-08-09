@@ -14,8 +14,8 @@ use function set_error_handler;
 
 final class ProductionErrorHandler
 {
-    private ErrorHandlerInterface $error_handler;
-    private ErrorMiddleware $middleware;
+    private readonly ErrorHandlerInterface $error_handler;
+    private readonly ErrorMiddleware $middleware;
 
     public function __construct(
         ResponseFactoryInterface $response_factory,
@@ -28,7 +28,7 @@ final class ProductionErrorHandler
             $logger,
         );
 
-        set_error_handler(static function ($level, $message, $file = null, $line = null) {
+        set_error_handler(static function ($level, $message, $file = null, $line = null): never {
             throw new ErrorException($message, 0, $level, $file, $line);
         });
 

@@ -31,13 +31,13 @@ abstract class AbstractUuidType extends Type
         return pack('h*', str_replace('-', '', (string) $value));
     }
 
-    public function convertToPHPValue($value, AbstractPlatform $platform)
+    public function convertToPHPValue($value, AbstractPlatform $platform): object
     {
-        $values = unpack('h*', $value);
+        $values = unpack('h*', (string) $value);
         $uuid = preg_replace(
             '/([0-9a-f]{8})([0-9a-f]{4})([0-9a-f]{4})([0-9a-f]{4})([0-9a-f]{12})/',
             '$1-$2-$3-$4-$5',
-            array_pop($values),
+            (string) array_pop($values),
         );
 
         return $this->createValueObjectFromValue($uuid);
