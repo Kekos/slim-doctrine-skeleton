@@ -10,7 +10,7 @@ class UserNotFoundException extends DomainRecordNotFoundException
     public function __construct(
         $message = 'The user you requested does not exist.',
         $code = 0,
-        Throwable $previous = null,
+        ?Throwable $previous = null,
     ) {
         parent::__construct($message, $code, $previous);
     }

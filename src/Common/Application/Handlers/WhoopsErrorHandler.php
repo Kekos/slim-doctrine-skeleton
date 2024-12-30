@@ -9,7 +9,7 @@ use Whoops\Util\Misc as WhoopsMisc;
 
 final class WhoopsErrorHandler
 {
-    public function __construct(string $editor = null)
+    public function __construct(?string $editor = null)
     {
         $whoops = new WhoopsRun();
 

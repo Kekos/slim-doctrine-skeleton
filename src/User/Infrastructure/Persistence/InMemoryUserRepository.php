@@ -20,7 +20,7 @@ class InMemoryUserRepository implements UserRepository
      * @param User[]|null $users
      * @throws AssertionFailedException
      */
-    public function __construct(array $users = null)
+    public function __construct(?array $users = null)
     {
         $users ??= [
             new User(UserId::fromString('d15381dd-3a2b-41b8-9a31-b17cd40ed0c7'), 'bill.gates', 'Bill', 'Gates'),

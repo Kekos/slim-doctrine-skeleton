@@ -66,7 +66,7 @@ abstract class Action
      * @param object|array|null $data
      * @throws JsonException
      */
-    protected function respondWithData(object|array $data = null, int $statusCode = 200): Response
+    protected function respondWithData(object|array|null $data = null, int $statusCode = 200): Response
     {
         $payload = new ActionPayload($statusCode, $data);
 
