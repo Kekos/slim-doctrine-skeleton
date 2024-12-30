@@ -11,12 +11,13 @@ use function is_a;
 use function is_scalar;
 use function pack;
 use function preg_replace;
+use function sprintf;
 use function str_replace;
 use function unpack;
 
 abstract class AbstractUuidType extends Type
 {
-    public function convertToDatabaseValue($value, AbstractPlatform $platform)
+    public function convertToDatabaseValue($value, AbstractPlatform $platform): string
     {
         if (is_scalar($value)) {
             $value = $this->createValueObjectFromValue($value);
@@ -25,7 +26,12 @@ abstract class AbstractUuidType extends Type
         $fqcn = $this->getValueObjectClassName();
 
         if (!is_a($value, $fqcn)) {
-            throw ConversionException::conversionFailedFormat($value, $this->getName(), $fqcn);
+            throw new ConversionException(sprintf(
+                'Failed converting database value `%s` to type `%s` as `%s` class',
+                $value,
+                $this->getName(),
+                $fqcn,
+            ));
         }
 
         return pack('h*', str_replace('-', '', (string) $value));

@@ -3,6 +3,7 @@
 use App\Common\Infrastructure\Doctrine\MySqlQuoteStrategy;
 use App\User\Infrastructure\Type\UserIdType;
 use Doctrine\DBAL\DriverManager;
+use Doctrine\DBAL\Tools\DsnParser;
 use Doctrine\DBAL\Types\Type;
 use Doctrine\Migrations\Configuration\Migration\ConfigurationLoader as DoctrineConfigurationLoader;
 use Doctrine\ORM\EntityManager;
@@ -60,11 +61,13 @@ return [
         $config = ORMSetup::createXMLMetadataConfiguration([$settings['metadata_dir']], $is_dev, $proxy_dir);
         $config->setQuoteStrategy(new MySqlQuoteStrategy());
 
-        $db_params = [
-            'url' => $_SERVER['DATABASE_URL'],
-        ];
+        if (!($database_url = $_SERVER['DATABASE_URL'])) {
+            throw new RuntimeException('Missing `DATABASE_URL`');
+        }
 
-        $conn = DriverManager::getConnection($db_params);
+        $dsn_parser = new DsnParser(['mysql' => 'pdo_mysql']);
+        $db_params = $dsn_parser->parse($database_url);
+        $conn = DriverManager::getConnection($db_params, $config);
 
         return new EntityManager($conn, $config);
     },

@@ -2,9 +2,14 @@
 
 namespace App\Common\Infrastructure\Doctrine;
 
+use BadMethodCallException;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\ORM\Mapping\ClassMetadata;
+use Doctrine\ORM\Mapping\JoinColumnMapping;
+use Doctrine\ORM\Mapping\ManyToManyOwningSideMapping;
 use Doctrine\ORM\Mapping\QuoteStrategy;
+use Doctrine\ORM\Mapping\ToOneOwningSideMapping;
+use LogicException;
 use RuntimeException;
 
 use function array_map;
@@ -12,31 +17,30 @@ use function array_merge;
 use function is_numeric;
 use function is_string;
 use function preg_replace;
+use function sprintf;
 use function substr;
 
-class MySqlQuoteStrategy implements QuoteStrategy
+final class MySqlQuoteStrategy implements QuoteStrategy
 {
-    /**
-     * @inheritDoc
-     */
-    public function getColumnName($fieldName, ClassMetadata $class, AbstractPlatform $platform): string
+    public function getColumnName(string $fieldName, ClassMetadata $class, AbstractPlatform $platform): string
     {
-        if (isset($class->fieldMappings[$fieldName]['quoted'])) {
-            return $platform->quoteIdentifier($class->fieldMappings[$fieldName]['columnName']);
+        if (!isset($class->fieldMappings[$fieldName])) {
+            throw new BadMethodCallException(sprintf('Column "%s" not set in class metadata', $fieldName));
+        }
+
+        if (isset($class->fieldMappings[$fieldName]->quoted)) {
+            return $platform->quoteIdentifier($class->fieldMappings[$fieldName]->columnName);
         }
 
         $reserved_keywords_list = $platform->getReservedKeywordsList();
 
         if ($reserved_keywords_list->isKeyword($fieldName)) {
-            return $platform->quoteIdentifier($class->fieldMappings[$fieldName]['columnName']);
+            return $platform->quoteIdentifier($class->fieldMappings[$fieldName]->columnName);
         }
 
-        return $class->fieldMappings[$fieldName]['columnName'];
+        return $class->fieldMappings[$fieldName]->columnName;
     }
 
-    /**
-     * @inheritDoc
-     */
     public function getTableName(ClassMetadata $class, AbstractPlatform $platform): string
     {
         if (isset($class->table['quoted'])) {
@@ -52,9 +56,6 @@ class MySqlQuoteStrategy implements QuoteStrategy
         return $class->table['name'];
     }
 
-    /**
-     * @inheritDoc
-     */
     public function getSequenceName(array $definition, ClassMetadata $class, AbstractPlatform $platform): string
     {
         if (isset($definition['quoted'])) {
@@ -62,71 +63,73 @@ class MySqlQuoteStrategy implements QuoteStrategy
         }
 
         $reserved_keywords_list = $platform->getReservedKeywordsList();
+        $sequence_name = $definition['sequenceName'];
 
-        if ($reserved_keywords_list->isKeyword($definition['sequenceName'])) {
-            return $platform->quoteIdentifier($definition['sequenceName']);
+        if (!is_string($sequence_name)) {
+            throw new LogicException('`sequenceName` expected to be a string.');
         }
 
-        return $definition['sequenceName'];
+        if ($reserved_keywords_list->isKeyword($sequence_name)) {
+            return $platform->quoteIdentifier($sequence_name);
+        }
+
+        return $sequence_name;
     }
 
-    /**
-     * @inheritDoc
-     */
-    public function getJoinTableName(array $association, ClassMetadata $class, AbstractPlatform $platform): string
-    {
-        if (isset($association['joinTable']['quoted'])) {
-            return $platform->quoteIdentifier($association['joinTable']['name']);
+    public function getJoinTableName(
+        ManyToManyOwningSideMapping $association,
+        ClassMetadata $class,
+        AbstractPlatform $platform,
+    ): string {
+        if (isset($association->joinTable->quoted)) {
+            return $platform->quoteIdentifier($association->joinTable->name);
         }
 
         $reserved_keywords_list = $platform->getReservedKeywordsList();
 
-        if ($reserved_keywords_list->isKeyword($association['joinTable']['name'])) {
-            return $platform->quoteIdentifier($association['joinTable']['name']);
+        if ($reserved_keywords_list->isKeyword($association->joinTable->name)) {
+            return $platform->quoteIdentifier($association->joinTable->name);
         }
 
-        return $association['joinTable']['name'];
+        return $association->joinTable->name;
     }
 
-    /**
-     * @inheritDoc
-     */
-    public function getJoinColumnName(array $joinColumn, ClassMetadata $class, AbstractPlatform $platform): string
-    {
-        if (isset($joinColumn['quoted'])) {
-            return $platform->quoteIdentifier($joinColumn['name']);
+    public function getJoinColumnName(
+        JoinColumnMapping $joinColumn,
+        ClassMetadata $class,
+        AbstractPlatform $platform,
+    ): string {
+        if (isset($joinColumn->quoted)) {
+            return $platform->quoteIdentifier($joinColumn->name);
         }
 
         $reserved_keywords_list = $platform->getReservedKeywordsList();
 
-        if ($reserved_keywords_list->isKeyword($joinColumn['name'])) {
-            return $platform->quoteIdentifier($joinColumn['name']);
+        if ($reserved_keywords_list->isKeyword($joinColumn->name)) {
+            return $platform->quoteIdentifier($joinColumn->name);
         }
 
-        return $joinColumn['name'];
+        return $joinColumn->name;
     }
 
-    /**
-     * @inheritDoc
-     */
-    public function getReferencedJoinColumnName(array $joinColumn, ClassMetadata $class, AbstractPlatform $platform): string
-    {
-        if (isset($joinColumn['quoted'])) {
-            return $platform->quoteIdentifier($joinColumn['referencedColumnName']);
+    public function getReferencedJoinColumnName(
+        JoinColumnMapping $joinColumn,
+        ClassMetadata $class,
+        AbstractPlatform $platform,
+    ): string {
+        if (isset($joinColumn->quoted)) {
+            return $platform->quoteIdentifier($joinColumn->referencedColumnName);
         }
 
         $reserved_keywords_list = $platform->getReservedKeywordsList();
 
-        if ($reserved_keywords_list->isKeyword($joinColumn['referencedColumnName'])) {
-            return $platform->quoteIdentifier($joinColumn['referencedColumnName']);
+        if ($reserved_keywords_list->isKeyword($joinColumn->referencedColumnName)) {
+            return $platform->quoteIdentifier($joinColumn->referencedColumnName);
         }
 
-        return $joinColumn['referencedColumnName'];
+        return $joinColumn->referencedColumnName;
     }
 
-    /**
-     * @inheritDoc
-     */
     public function getIdentifierColumnNames(ClassMetadata $class, AbstractPlatform $platform): array
     {
         $quoted_column_names = [];
@@ -139,22 +142,27 @@ class MySqlQuoteStrategy implements QuoteStrategy
             }
 
             // Association defined as Id field
-            $join_columns = $class->associationMappings[$fieldName]['joinColumns'];
+            $association_mapping = $class->associationMappings[$fieldName];
+            if (!$association_mapping instanceof ToOneOwningSideMapping) {
+                continue;
+            }
+
+            $join_columns = $association_mapping->joinColumns;
             $assoc_quoted_column_names = array_map(
-                function ($join_column) use ($platform) {
-                    if (isset($join_column['quoted'])) {
-                        return $platform->quoteIdentifier($join_column['name']);
+                function (JoinColumnMapping $join_column) use ($platform) {
+                    if (isset($join_column->quoted)) {
+                        return $platform->quoteIdentifier($join_column->name);
                     }
 
                     $reserved_keywords_list = $platform->getReservedKeywordsList();
 
-                    if ($reserved_keywords_list->isKeyword($join_column['name'])) {
-                        return $platform->quoteIdentifier($join_column['name']);
+                    if ($reserved_keywords_list->isKeyword($join_column->name)) {
+                        return $platform->quoteIdentifier($join_column->name);
                     }
 
-                    return $join_column['name'];
+                    return $join_column->name;
                 },
-                $join_columns
+                $join_columns,
             );
 
             $quoted_column_names[] = $assoc_quoted_column_names;
@@ -163,11 +171,12 @@ class MySqlQuoteStrategy implements QuoteStrategy
         return array_merge(...$quoted_column_names);
     }
 
-    /**
-     * @inheritDoc
-     */
-    public function getColumnAlias($columnName, $counter, AbstractPlatform $platform, ClassMetadata $class = null): string
-    {
+    public function getColumnAlias(
+        string $columnName,
+        int $counter,
+        AbstractPlatform $platform,
+        ?ClassMetadata $class = null,
+    ): string {
         // 1 ) Concatenate column name and counter
         // 2 ) Trim the column alias to the maximum identifier length of the platform.
         //     If the alias is to long, characters are cut off from the beginning.
