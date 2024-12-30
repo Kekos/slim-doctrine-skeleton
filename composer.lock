@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "57117c1d79991787f59cf3aa6efe5c98",
+    "content-hash": "7d2f55bc97323aec7df9cc5f334ee27a",
     "packages": [
         {
             "name": "beberlei/assert",
@@ -1227,16 +1227,16 @@
         },
         {
             "name": "kekos/parse-request-body-middleware",
-            "version": "v1.1.3",
+            "version": "v2.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Kekos/parse-request-body-middleware.git",
-                "reference": "9d5698ec772e2daa5c81ff8afd7e5dcca28eb846"
+                "reference": "de59856c940a137c0501689d3fca30cdd46d0e6d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Kekos/parse-request-body-middleware/zipball/9d5698ec772e2daa5c81ff8afd7e5dcca28eb846",
-                "reference": "9d5698ec772e2daa5c81ff8afd7e5dcca28eb846",
+                "url": "https://api.github.com/repos/Kekos/parse-request-body-middleware/zipball/de59856c940a137c0501689d3fca30cdd46d0e6d",
+                "reference": "de59856c940a137c0501689d3fca30cdd46d0e6d",
                 "shasum": ""
             },
             "require": {
@@ -1274,9 +1274,9 @@
             "description": "PSR-15 middleware for parsing requests with JSON and URI encoded bodies regardless of HTTP method.",
             "support": {
                 "issues": "https://github.com/Kekos/parse-request-body-middleware/issues",
-                "source": "https://github.com/Kekos/parse-request-body-middleware/tree/v1.1.3"
+                "source": "https://github.com/Kekos/parse-request-body-middleware/tree/v2.0.0"
             },
-            "time": "2024-11-25T21:07:21+00:00"
+            "time": "2024-12-27T09:41:04+00:00"
         },
         {
             "name": "laravel/serializable-closure",
